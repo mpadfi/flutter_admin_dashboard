@@ -10,7 +10,7 @@ class SpalshLayout extends StatelessWidget {
           children: const [
             CircularProgressIndicator(),
             SizedBox(height: 20),
-            Text('Checking...'),
+            Text('Cargando...'),
           ],
         ),
       ),
