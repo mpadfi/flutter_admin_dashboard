@@ -46,11 +46,11 @@ class _DesktopBody extends StatelessWidget {
         color: Colors.black,
         child: Row(
           children: [
-            // Login background
-            const BackgroundLogin(),
-            // VIEW CONTAINER
+            // Imagen lateral login-registro
+            const Expanded(child: BackgroundLogin()),
+            //* LOGIN VIEW CONTAINER
             Container(
-              width: 700,
+              width: 600,
               height: double.infinity,
               color: Colors.black,
               child: Column(
