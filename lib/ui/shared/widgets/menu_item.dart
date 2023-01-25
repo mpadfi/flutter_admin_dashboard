@@ -30,7 +30,7 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
       color: isHovered
           ? Colors.white.withOpacity(0.1)
           : widget.isActive
-              ? Colors.white.withOpacity(0.1)
+              ? Colors.black.withOpacity(0.2)
               : Colors.transparent,
       child: Material(
         color: Colors.transparent,

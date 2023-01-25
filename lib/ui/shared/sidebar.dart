@@ -1,14 +1,24 @@
-import 'package:admin_dashboard/providers/sidebar_provider.dart';
-import 'package:admin_dashboard/ui/shared/widgets/logo.dart';
-import 'package:admin_dashboard/ui/shared/widgets/menu_item.dart';
-import 'package:admin_dashboard/ui/shared/widgets/text_separator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/providers/sidebar_provider.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
+
+import 'package:admin_dashboard/ui/shared/widgets/widgets.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
 
+  void navigateTo(String routeName) {
+    SideBarProvider.closeMenu();
+    NavigationService.navigateTo(routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentPage = Provider.of<SideBarProvider>(context).currentPage;
+
     return Container(
       width: 200,
       height: double.infinity,
@@ -20,15 +30,30 @@ class Sidebar extends StatelessWidget {
           const SizedBox(height: 40.0),
           const TextSeparator(text: 'Main'),
           CustomMenuItem(
+            isActive: currentPage == Flurorouter.dashboarRoute,
             text: 'Dashboard',
             icon: Icons.dashboard_outlined,
-            onPressed: () {
-              SideBarProvider.closeMenu();
-            },
+            onPressed: () => navigateTo(Flurorouter.dashboarRoute),
           ),
-          CustomMenuItem(text: 'Wallet', icon: Icons.wallet, onPressed: () {}),
-          CustomMenuItem(text: 'Stores', icon: Icons.shopping_bag_outlined, onPressed: () {}),
+          CustomMenuItem(
+            isActive: currentPage == Flurorouter.walletRoute,
+            text: 'Wallet',
+            icon: Icons.wallet,
+            onPressed: () => navigateTo(Flurorouter.walletRoute),
+          ),
+          CustomMenuItem(
+            isActive: currentPage == Flurorouter.storesRoute,
+            text: 'Stores',
+            icon: Icons.shopping_bag_outlined,
+            onPressed: () => navigateTo(Flurorouter.storesRoute),
+          ),
           CustomMenuItem(text: 'Profile', icon: Icons.account_circle_outlined, onPressed: () {}),
+          CustomMenuItem(
+            isActive: currentPage == Flurorouter.iconsRoute,
+            text: 'Icons',
+            icon: Icons.check_circle_outlined,
+            onPressed: () => navigateTo(Flurorouter.iconsRoute),
+          ),
           const SizedBox(height: 50.0),
           const TextSeparator(text: 'Actions'),
           CustomMenuItem(text: 'Extension', icon: Icons.downloading_outlined, onPressed: () {}),

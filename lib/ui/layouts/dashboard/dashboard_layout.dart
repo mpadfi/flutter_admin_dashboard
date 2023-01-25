@@ -34,7 +34,7 @@ class _DashBoardLayoutState extends State<DashBoardLayout> with SingleTickerProv
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-        backgroundColor: Colors.indigo[50],
+        backgroundColor: Colors.grey[200],
         body: Stack(
           children: [
             Row(
@@ -44,8 +44,13 @@ class _DashBoardLayoutState extends State<DashBoardLayout> with SingleTickerProv
                   child: Column(
                     children: [
                       const Navbar(),
-                      //* VIEW
-                      Expanded(child: widget.child),
+                      //* VIEW - CONTENIDO DEL LAYOUT
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+                          child: widget.child,
+                        ),
+                      ),
                     ],
                   ),
                 ),

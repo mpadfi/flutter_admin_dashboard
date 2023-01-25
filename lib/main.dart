@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/sidebar_provider.dart';
 import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:admin_dashboard/ui/layouts/dashboard/dashboard_layout.dart';
 import 'package:admin_dashboard/ui/layouts/splash/splash_layout.dart';
@@ -23,10 +24,9 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          lazy: false, // para que empieze el proceso de autentificación // true seria bajo demanda
-          create: (_) => AuthProvider(),
-        ),
+        // lazy en false para que empieze el proceso de autentificación // true seria bajo demanda
+        ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
+        ChangeNotifierProvider(lazy: false, create: (_) => SideBarProvider())
       ],
       child: const MyApp(),
     );
