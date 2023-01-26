@@ -8,11 +8,11 @@ class BackgroundLogin extends StatelessWidget {
     return Container(
       decoration: buildBoxDecoration(),
       child: Container(
+        margin: const EdgeInsets.only(bottom: 300),
         constraints: const BoxConstraints(maxWidth: 400),
         child: const Center(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
-            // todo poner imagen
             child: Image(
               image: AssetImage('assets/poly-white.png'),
               width: 300,
