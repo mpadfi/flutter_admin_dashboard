@@ -13,10 +13,10 @@ class BackgroundLogin extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             // todo poner imagen
-            // child: Image(
-            //   image: AssetImage('poly-white.png'),
-            //   width: 250,
-            // ),
+            child: Image(
+              image: AssetImage('assets/poly-white.png'),
+              width: 300,
+            ),
           ),
         ),
       ),
@@ -25,7 +25,7 @@ class BackgroundLogin extends StatelessWidget {
 
   BoxDecoration buildBoxDecoration() => const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('city.jpg'),
+          image: AssetImage('assets/city.jpg'),
           fit: BoxFit.cover,
         ),
       );

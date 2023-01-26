@@ -8,8 +8,8 @@ class Logo extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.only(top: 30.0),
         child: Image.asset(
-          'poly-white.png',
-          height: 60.0,
+          'assets/poly-white.png',
+          height: 50.0,
         )
         // child: Row(
         //   mainAxisAlignment: MainAxisAlignment.center,

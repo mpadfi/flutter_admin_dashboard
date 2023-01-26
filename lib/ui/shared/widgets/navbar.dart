@@ -19,7 +19,7 @@ class Navbar extends StatelessWidget {
                 icon: const Icon(Icons.menu_outlined),
                 onPressed: () => SideBarProvider.openMenu(),
               ),
-            const SizedBox(width: 5),
+            SizedBox(width: size.width <= 700 ? 5 : 10),
             // Search input
             if (size.width > 390)
               ConstrainedBox(
@@ -37,11 +37,11 @@ class Navbar extends StatelessWidget {
 
   BoxDecoration buildBoxDecoration() => const BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-          )
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.black12,
+        //     blurRadius: 10,
+        //   )
+        // ],
       );
 }

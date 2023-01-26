@@ -12,6 +12,7 @@ import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await LocalStorage.configurePrefs();
   Flurorouter.configureRoutes();
   runApp(const AppState());
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         }
       },
       theme: ThemeData.light().copyWith(
+        useMaterial3: true,
         scrollbarTheme: const ScrollbarThemeData().copyWith(
           thumbColor: MaterialStateProperty.all(Colors.grey.withOpacity(0.5)),
         ),

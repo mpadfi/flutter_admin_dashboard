@@ -29,12 +29,12 @@ class Flurorouter {
     router.define(registerRoute, handler: AdminHandlers.register, transitionType: TransitionType.none);
 
     // dashboard
-    router.define(dashboarRoute, handler: DashboardHandlers.dashboard, transitionType: TransitionType.fadeIn);
-    router.define(walletRoute, handler: DashboardHandlers.wallet, transitionType: TransitionType.fadeIn);
-    router.define(storesRoute, handler: DashboardHandlers.stores, transitionType: TransitionType.fadeIn);
+    router.define(dashboarRoute, handler: DashboardHandlers.dashboard, transitionType: TransitionType.none);
+    router.define(walletRoute, handler: DashboardHandlers.wallet, transitionType: TransitionType.none);
+    router.define(storesRoute, handler: DashboardHandlers.stores, transitionType: TransitionType.none);
 
-    router.define(iconsRoute, handler: DashboardHandlers.icons, transitionType: TransitionType.fadeIn);
-    router.define(blankRoute, handler: DashboardHandlers.blank, transitionType: TransitionType.fadeIn);
+    router.define(iconsRoute, handler: DashboardHandlers.icons, transitionType: TransitionType.none);
+    router.define(blankRoute, handler: DashboardHandlers.blank, transitionType: TransitionType.none);
     // 404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;
   }

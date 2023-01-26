@@ -20,11 +20,14 @@ class StoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final width = MediaQuery.of(context).size.width;
+
     return Container(
         width: cardWidth,
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.all(20),
-        decoration: buildBoxDecoration(),
+        margin: EdgeInsets.all(width < 700 ? 4 : 8),
+        padding: EdgeInsets.all(width < 700 ? 10 : 16),
+        decoration: storeBoxDecoration(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -35,13 +38,14 @@ class StoreCard extends StatelessWidget {
                 if (title != null)
                   FittedBox(
                     fit: BoxFit.contain,
-                    child: Text(title!, style: CustomLabels.h3),
+                    child: Text(title!, style: CustomLabels.h4),
                   ),
                 if (subtitle != null)
                   FittedBox(
                     fit: BoxFit.contain,
                     child: Text(subtitle!, style: CustomLabels.storedesc),
                   ),
+                const SizedBox(height: 3),
                 childWidget,
               ],
             ),
@@ -53,16 +57,18 @@ class StoreCard extends StatelessWidget {
         ));
   }
 
-  BoxDecoration buildBoxDecoration() {
+  BoxDecoration storeBoxDecoration() {
     return BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.14),
-          blurRadius: 10,
-        )
-      ],
+      // color: Colors.grey.withOpacity(0.05),
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.black12, width: 0.6),
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: Colors.black.withOpacity(0.10),
+      //     blurRadius: 10,
+      //   )
+      // ],
     );
   }
 }
@@ -77,16 +83,19 @@ class StoreImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final width = MediaQuery.of(context).size.width;
+
     return Container(
-      width: 80,
-      height: 80,
+      width: width < 700 ? 60 : 70,
+      height: width < 700 ? 60 : 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
-            blurRadius: 5,
+            blurRadius: 14,
           )
         ],
       ),

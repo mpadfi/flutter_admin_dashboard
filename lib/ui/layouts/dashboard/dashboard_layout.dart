@@ -34,60 +34,65 @@ class _DashBoardLayoutState extends State<DashBoardLayout> with SingleTickerProv
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-        backgroundColor: Colors.grey[200],
-        body: Stack(
-          children: [
-            Row(
-              children: [
-                if (size.width >= 700) const Sidebar(),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Navbar(),
-                      //* VIEW - CONTENIDO DEL LAYOUT
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-                          child: widget.child,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            if (size.width < 700)
-              AnimatedBuilder(
-                animation: SideBarProvider.menuController,
-                builder: (context, _) {
-                  return Stack(
-                    children: [
-                      //
-                      //* FONDO DEL SIDEBAR
-                      if (SideBarProvider.isOpen)
-                        AnimatedOpacity(
-                          opacity: SideBarProvider.opacity.value,
-                          duration: const Duration(milliseconds: 200),
-                          child: GestureDetector(
-                            onTap: () => SideBarProvider.closeMenu(),
-                            child: Container(
-                              color: Colors.black26,
-                              width: size.width,
-                              height: size.height,
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  if (size.width >= 700) const Sidebar(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const Navbar(),
+                        //* VIEW - CONTENIDO DEL LAYOUT
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: size.width < 700 ? 10 : 30,
+                              vertical: 20.0,
                             ),
+                            child: widget.child,
                           ),
                         ),
-
-                      //* SIDEBAR ANIMACIÓN DE APERTURA
-                      Transform.translate(
-                        offset: Offset(SideBarProvider.movement.value, 0),
-                        child: const Sidebar(),
-                      )
-                    ],
-                  );
-                },
+                      ],
+                    ),
+                  ),
+                ],
               ),
-          ],
+              if (size.width < 700)
+                AnimatedBuilder(
+                  animation: SideBarProvider.menuController,
+                  builder: (context, _) {
+                    return Stack(
+                      children: [
+                        //
+                        //* FONDO DEL SIDEBAR
+                        if (SideBarProvider.isOpen)
+                          AnimatedOpacity(
+                            opacity: SideBarProvider.opacity.value,
+                            duration: const Duration(milliseconds: 200),
+                            child: GestureDetector(
+                              onTap: () => SideBarProvider.closeMenu(),
+                              child: Container(
+                                color: Colors.black26,
+                                width: size.width,
+                                height: size.height,
+                              ),
+                            ),
+                          ),
+
+                        //* SIDEBAR ANIMACIÓN DE APERTURA
+                        Transform.translate(
+                          offset: Offset(SideBarProvider.movement.value, 0),
+                          child: const Sidebar(),
+                        )
+                      ],
+                    );
+                  },
+                ),
+            ],
+          ),
         ));
   }
 }
