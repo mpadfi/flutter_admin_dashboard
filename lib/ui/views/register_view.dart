@@ -1,10 +1,12 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/register_form_provider.dart';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:admin_dashboard/router/router.dart';
+
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/buttons/link_text.dart';
 import 'package:admin_dashboard/ui/inputs/custom_input.dart';
@@ -41,6 +43,7 @@ class RegisterView extends StatelessWidget {
             child: Column(
               children: [
                 //* NOMBRE
+
                 TextFormField(
                   validator: (value) {
                     if (value == '' || value!.isEmpty) return 'Nombre requerido';
@@ -57,6 +60,7 @@ class RegisterView extends StatelessWidget {
                 const SizedBox(height: 20.0),
 
                 //* EMAIL
+
                 TextFormField(
                   validator: (value) {
                     if (!EmailValidator.validate(value ?? '')) return 'Email no válido';
@@ -73,6 +77,7 @@ class RegisterView extends StatelessWidget {
                 const SizedBox(height: 20.0),
 
                 //* PASSWORD
+
                 TextFormField(
                   validator: (value) {
                     if (value == null) return 'Ingrese su contraseña';
@@ -89,9 +94,21 @@ class RegisterView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20.0),
+
+                //* BOTÓN REGISTRAR
+
                 CustomOutlinedButton(
                   onPressed: () {
-                    registerFormProvider.validateForm();
+                    //
+                    final validForm = registerFormProvider.validateForm();
+                    if (!validForm) return;
+                    // AuthProvider Register
+                    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                    authProvider.register(
+                      registerFormProvider.email,
+                      registerFormProvider.password,
+                      registerFormProvider.name,
+                    );
                   },
                   text: 'Crear cuenta',
                   isFilled: true,

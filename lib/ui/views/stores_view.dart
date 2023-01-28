@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class StoresView extends StatelessWidget {
+  const StoresView({super.key});
+
   @override
   Widget build(BuildContext context) {
     //
     final size = MediaQuery.of(context).size;
 
     return Container(
+      padding: const EdgeInsets.all(30.0),
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
@@ -18,6 +21,8 @@ class StoresView extends StatelessWidget {
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,
             direction: Axis.horizontal,
+            spacing: 4,
+            runSpacing: 4,
             children: [
               StoreCard(
                 img: 'https://polycashback.com/imgTiendas/1.png',

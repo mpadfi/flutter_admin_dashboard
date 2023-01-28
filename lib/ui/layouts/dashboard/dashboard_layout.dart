@@ -45,13 +45,11 @@ class _DashBoardLayoutState extends State<DashBoardLayout> with SingleTickerProv
                     child: Column(
                       children: [
                         const Navbar(),
+                        //
                         //* VIEW - CONTENIDO DEL LAYOUT
+
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: size.width < 700 ? 10 : 30,
-                              vertical: 20.0,
-                            ),
+                          child: Container(
                             child: widget.child,
                           ),
                         ),

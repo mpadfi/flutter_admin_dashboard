@@ -4,12 +4,15 @@ import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/ui/cards/white_card.dart';
 
 class WalletView extends StatelessWidget {
+  const WalletView({super.key});
+
   @override
   Widget build(BuildContext context) {
     //
     final size = MediaQuery.of(context).size;
 
     return Container(
+      padding: const EdgeInsets.all(30.0),
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [

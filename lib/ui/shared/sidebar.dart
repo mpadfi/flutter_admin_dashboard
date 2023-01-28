@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,9 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     final currentPage = Provider.of<SideBarProvider>(context).currentPage;
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Container(
       width: 200,
@@ -54,10 +57,22 @@ class Sidebar extends StatelessWidget {
             icon: Icons.check_circle_outlined,
             onPressed: () => navigateTo(Flurorouter.iconsRoute),
           ),
+          CustomMenuItem(
+            isActive: currentPage == Flurorouter.categoriesRoute,
+            text: 'Categories',
+            icon: Icons.layers_rounded,
+            onPressed: () => navigateTo(Flurorouter.categoriesRoute),
+          ),
           const SizedBox(height: 50.0),
           const TextSeparator(text: 'Actions'),
           CustomMenuItem(text: 'Extension', icon: Icons.downloading_outlined, onPressed: () {}),
-          CustomMenuItem(text: 'Logout', icon: Icons.exit_to_app_outlined, onPressed: () {}),
+          CustomMenuItem(
+            text: 'Logout',
+            icon: Icons.exit_to_app_outlined,
+            onPressed: () {
+              authProvider.logout();
+            },
+          ),
         ],
       ),
     );

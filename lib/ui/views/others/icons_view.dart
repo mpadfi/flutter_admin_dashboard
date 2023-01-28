@@ -4,9 +4,12 @@ import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/ui/cards/white_card.dart';
 
 class IconsView extends StatelessWidget {
+  const IconsView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(30.0),
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
@@ -48,6 +51,35 @@ class IconsView extends StatelessWidget {
                   child: Center(child: Icon(Icons.check_circle_outlined)),
                 ),
               ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text('Buttons', style: CustomLabels.h2),
+          const SizedBox(height: 20),
+          Wrap(
+            spacing: 10,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Elevated'),
+              ),
+              FilledButton(
+                onPressed: () {},
+                child: const Text('Filled'),
+              ),
+              FilledButton.tonal(
+                onPressed: () {},
+                child: const Text('Filled Tonal'),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text('TextButton'),
+              ),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xff624ef2))),
+                onPressed: () {},
+                child: const Text('Outlined'),
+              )
             ],
           )
         ],

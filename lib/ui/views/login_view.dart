@@ -49,6 +49,7 @@ class LoginView extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) => loginFormProvider.email = value,
+                  onFieldSubmitted: (_) => onFormSubmit(loginFormProvider, authProvider),
                   style: const TextStyle(color: Colors.white),
                   decoration: CustomInput.authInputDecoration(
                     hint: 'Ingrese su correo',
@@ -66,6 +67,8 @@ class LoginView extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) => loginFormProvider.password = value,
+                  // SUBMIT AL INTRODUCIR PASSWORD SIN PULSAR BOTÓN
+                  onFieldSubmitted: (_) => onFormSubmit(loginFormProvider, authProvider),
                   obscureText: true,
                   style: const TextStyle(color: Colors.white),
                   decoration: CustomInput.authInputDecoration(
@@ -78,12 +81,7 @@ class LoginView extends StatelessWidget {
 
                 //* SUBMINT DEL FORMULARIO
                 CustomOutlinedButton(
-                  onPressed: () {
-                    final isValid = loginFormProvider.validateForm();
-                    if (isValid) {
-                      authProvider.login(loginFormProvider.email, loginFormProvider.password);
-                    }
-                  },
+                  onPressed: () => onFormSubmit(loginFormProvider, authProvider),
                   text: 'Ingresar',
                   isFilled: true,
                 ),
@@ -100,5 +98,12 @@ class LoginView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onFormSubmit(LoginFormProvider loginFormProvider, AuthProvider authProvider) {
+    final isValid = loginFormProvider.validateForm();
+    if (isValid) {
+      authProvider.login(loginFormProvider.email, loginFormProvider.password);
+    }
   }
 }

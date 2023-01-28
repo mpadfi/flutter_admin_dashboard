@@ -1,19 +1,37 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/ui/cards/home_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:provider/provider.dart';
 
 class DashboardView extends StatelessWidget {
+  const DashboardView({super.key});
+
   @override
   Widget build(BuildContext context) {
     //
     final size = MediaQuery.of(context).size;
+    final user = Provider.of<AuthProvider>(context).user!;
 
     return Container(
+      padding: const EdgeInsets.all(20.0),
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
-          Text('¡Hola Manuel!', style: CustomLabels.h1),
+          Row(
+            children: [
+              Icon(Icons.person_pin, size: 48, color: const Color(0xff624ef2).withOpacity(0.2)),
+              const SizedBox(width: 5),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(user.nombre, style: CustomLabels.h2),
+                  Text(user.correo, style: CustomLabels.p),
+                ],
+              ),
+            ],
+          ),
           const SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,6 +53,8 @@ class DashboardView extends StatelessWidget {
                   ),
                 ],
               ),
+
+              //* ACTIVIDAD
               Container(
                 margin: const EdgeInsets.all(12.0),
                 // padding: const EdgeInsets.all(20.0),

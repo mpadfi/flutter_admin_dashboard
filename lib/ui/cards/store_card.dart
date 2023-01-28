@@ -23,52 +23,50 @@ class StoreCard extends StatelessWidget {
     //
     final width = MediaQuery.of(context).size.width;
 
-    return Container(
-        width: cardWidth,
-        margin: EdgeInsets.all(width < 700 ? 4 : 8),
-        padding: EdgeInsets.all(width < 700 ? 10 : 16),
-        decoration: storeBoxDecoration(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            StoreImage(img: img),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (title != null)
-                  FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(title!, style: CustomLabels.h4),
-                  ),
-                if (subtitle != null)
-                  FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(subtitle!, style: CustomLabels.storedesc),
-                  ),
-                const SizedBox(height: 3),
-                childWidget,
-              ],
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_outline, color: Colors.pink),
-            )
-          ],
-        ));
-  }
-
-  BoxDecoration storeBoxDecoration() {
-    return BoxDecoration(
-      color: Colors.white,
-      // color: Colors.grey.withOpacity(0.05),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Colors.black12, width: 0.6),
-      // boxShadow: [
-      //   BoxShadow(
-      //     color: Colors.black.withOpacity(0.10),
-      //     blurRadius: 10,
-      //   )
-      // ],
+    return Card(
+      color: Colors.black.withOpacity(0.03),
+      shadowColor: Colors.transparent,
+      // elevation: 1,
+      // shape: const RoundedRectangleBorder(
+      //   side: BorderSide(
+      //     color: Colors.black12,
+      //   ),
+      //   borderRadius: BorderRadius.all(Radius.circular(12)),
+      // ),
+      child: Container(
+          width: cardWidth,
+          margin: EdgeInsets.all(width < 700 ? 4 : 8),
+          padding: EdgeInsets.all(width < 700 ? 4 : 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StoreImage(img: img),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (title != null)
+                      FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(title!, style: CustomLabels.h4),
+                      ),
+                    if (subtitle != null)
+                      FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(subtitle!, style: CustomLabels.storedesc),
+                      ),
+                    const SizedBox(height: 3),
+                    childWidget,
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.favorite_outline, color: Colors.pink),
+              )
+            ],
+          )),
     );
   }
 }
@@ -92,10 +90,10 @@ class StoreImage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 14,
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 5,
           )
         ],
       ),

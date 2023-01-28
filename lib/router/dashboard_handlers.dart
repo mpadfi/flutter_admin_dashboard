@@ -13,7 +13,7 @@ class DashboardHandlers {
     handlerFunc: (context, parameters) {
       final authStatus = Provider.of<AuthProvider>(context!).authStatus;
       Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.dashboarRoute);
-      return (authStatus == AuthStatus.authenticated) ? DashboardView() : const LoginView();
+      return (authStatus == AuthStatus.authenticated) ? const DashboardView() : const LoginView();
     },
   );
 
@@ -38,6 +38,14 @@ class DashboardHandlers {
       final authStatus = Provider.of<AuthProvider>(context!).authStatus;
       Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.iconsRoute);
       return (authStatus == AuthStatus.authenticated) ? IconsView() : const LoginView();
+    },
+  );
+
+  static Handler categories = Handler(
+    handlerFunc: (context, parameters) {
+      final authStatus = Provider.of<AuthProvider>(context!).authStatus;
+      Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.categoriesRoute);
+      return (authStatus == AuthStatus.authenticated) ? const CategoriesView() : const LoginView();
     },
   );
 

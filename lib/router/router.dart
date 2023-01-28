@@ -12,13 +12,13 @@ class Flurorouter {
   // Auth paths
   static String loginRoute = '/auth/login';
   static String registerRoute = '/auth/register';
-
   // Dashboard path
   static String dashboarRoute = '/dashboard';
   static String walletRoute = '/dashboard/wallet';
   static String storesRoute = '/dashboard/stores';
 
   static String iconsRoute = '/dashboard/icons';
+  static String categoriesRoute = '/dashboard/categories';
   static String blankRoute = '/dashboard/blank';
 
   static void configureRoutes() {
@@ -33,6 +33,7 @@ class Flurorouter {
     router.define(walletRoute, handler: DashboardHandlers.wallet, transitionType: TransitionType.none);
     router.define(storesRoute, handler: DashboardHandlers.stores, transitionType: TransitionType.none);
 
+    router.define(categoriesRoute, handler: DashboardHandlers.categories, transitionType: TransitionType.none);
     router.define(iconsRoute, handler: DashboardHandlers.icons, transitionType: TransitionType.none);
     router.define(blankRoute, handler: DashboardHandlers.blank, transitionType: TransitionType.none);
     // 404
