@@ -1,11 +1,10 @@
-import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/services/notifications_service.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-import 'package:admin_dashboard/providers/user_form_provider.dart';
-import 'package:admin_dashboard/providers/users_provider.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:email_validator/email_validator.dart';
+
+import 'package:admin_dashboard/providers/providers.dart';
+import 'package:admin_dashboard/services/services.dart';
 
 import 'package:admin_dashboard/models/usuario.dart';
 import 'package:admin_dashboard/ui/inputs/custom_input.dart';
@@ -52,9 +51,8 @@ class _UserViewState extends State<UserView> {
 
   // @override
   // void dispose() {
-  //   user = null;
-  //   Provider.of<UserFormProvider>(context, listen: false).user = null;
   //   super.dispose();
+  //   Provider.of<UserFormProvider>(context, listen: false).user = null;
   // }
 
   @override
@@ -115,6 +113,7 @@ class _UserForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
+    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
 
@@ -189,10 +188,8 @@ class _UserForm extends StatelessWidget {
                     final saveUser = await userFormProvider.updateUser();
                     if (saveUser) {
                       NotificationsService.showSnackbar('Usuario Actualizado');
-                      if (context.mounted) {
-                        Provider.of<UsersProvider>(context, listen: false).refreshUser(user);
-                      }
-                      NavigationService.navigateTo('dashboard/users');
+                      usersProvider.refreshUser(user);
+                      // NavigationService.navigateTo('dashboard/users');
                     } else {
                       NotificationsService.showSnackbarError('Actualización fallida');
                     }
@@ -218,8 +215,11 @@ class _AvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
+    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user!;
+
+    final image = (user.img == null) ? Image.asset('no-image.jpg') : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img!);
 
     return WhiteCard(
       cardWidth: 250,
@@ -237,7 +237,11 @@ class _AvatarContainer extends StatelessWidget {
               height: 140,
               child: Stack(
                 children: [
-                  ClipOval(child: Image.asset('no-image.jpg')),
+                  //
+                  //* IMAGEN DEL FORMULARIO
+                  ClipOval(
+                    child: image,
+                  ),
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -248,9 +252,33 @@ class _AvatarContainer extends StatelessWidget {
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(color: Colors.white, width: 5),
                       ),
+
+                      //* FLOATING CAMBIAR IMAGEN
+
                       child: FloatingActionButton(
                         backgroundColor: const Color(0xff624ef2),
-                        onPressed: () {},
+                        onPressed: () async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles(
+                            allowedExtensions: ['jgp', 'jpeg', 'png'],
+                            allowMultiple: false,
+                            type: FileType.custom,
+                          );
+
+                          if (result != null) {
+                            if (context.mounted) {
+                              NotificationsService.showIndicator(context);
+                            }
+                            final newUser = await userFormProvider.updateImage(
+                              '/uploads/usuarios/${user.uid}',
+                              result.files.first.bytes!,
+                            );
+                            usersProvider.refreshUser(newUser);
+                            Navigator.of(context).pop();
+                            if (context.mounted) {}
+                          } else {
+                            // User canceled the picker
+                          }
+                        },
                         child: const Icon(Icons.camera_alt_outlined, size: 20, color: Colors.white),
                       ),
                     ),

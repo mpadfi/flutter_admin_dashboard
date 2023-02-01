@@ -1,9 +1,9 @@
-import 'package:admin_dashboard/providers/auth_provider.dart';
-import 'package:admin_dashboard/ui/cards/home_card.dart';
 import 'package:flutter/material.dart';
-
-import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:provider/provider.dart';
+import 'package:admin_dashboard/providers/auth_provider.dart';
+
+import 'package:admin_dashboard/ui/cards/home_card.dart';
+import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

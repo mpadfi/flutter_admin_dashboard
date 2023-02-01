@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsService {
@@ -22,5 +23,25 @@ class NotificationsService {
     );
 
     messengerKey.currentState!.showSnackBar(snackBar);
+  }
+
+  static showIndicator(BuildContext context) {
+    AlertDialog dialog = AlertDialog(
+      content: SizedBox(
+        width: 100,
+        height: 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 20),
+              Text('Cargando Imagen', style: CustomLabels.h4),
+            ],
+          ),
+        ),
+      ),
+    );
+    showDialog(context: context, builder: (_) => dialog);
   }
 }

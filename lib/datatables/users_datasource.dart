@@ -13,14 +13,14 @@ class UsersDTS extends DataTableSource {
   DataRow? getRow(int index) {
     //
     final usuario = users[index];
-    final image = Image.asset('no-image.jpg', width: 35, height: 35);
+    final image = (usuario.img == null) ? Image.asset('no-image.jpg', width: 35, height: 35) : Image.network(usuario.img!, width: 35, height: 35);
 
     return DataRow.byIndex(
       index: index,
       cells: [
         DataCell(
           ClipOval(
-            child: usuario.img != null ? Image.network(usuario.img!) : image,
+            child: image,
           ),
         ),
         DataCell(Text(usuario.nombre, style: CustomLabels.tableUser)),
