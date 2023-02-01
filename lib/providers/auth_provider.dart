@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
+
 import 'package:admin_dashboard/models/http/auth_response.dart';
+import 'package:admin_dashboard/models/usuario.dart';
 import 'package:admin_dashboard/router/router.dart';
+
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
+
 import 'package:admin_dashboard/ui/api/cafe_api.dart';
-import 'package:flutter/material.dart';
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
@@ -22,7 +26,7 @@ class AuthProvider extends ChangeNotifier {
     //
     final credentials = {'correo': email, 'password': password};
 
-    CafeApi.httpPost('/auth/login', credentials).then((json) {
+    CafeApi.post('/auth/login', credentials).then((json) {
       //
       final authResponse = AuthResponse.fromMap(json);
       user = authResponse.usuario;
@@ -49,7 +53,7 @@ class AuthProvider extends ChangeNotifier {
       'password': password,
     };
 
-    CafeApi.httpPost('/usuarios', data).then((json) {
+    CafeApi.post('/usuarios', data).then((json) {
       //
       final authResponse = AuthResponse.fromMap(json);
       user = authResponse.usuario;
@@ -77,7 +81,7 @@ class AuthProvider extends ChangeNotifier {
 
     // IR AL BACKEND Y COMPROBAR EL JWT ES VALIDO
     try {
-      final resp = await CafeApi.httpGet('/auth');
+      final resp = await CafeApi.get('/auth');
       final authResponse = AuthResponse.fromMap(resp);
       LocalStorage.prefs.setString('token', authResponse.token);
       user = authResponse.usuario;

@@ -21,7 +21,7 @@ class DashboardHandlers {
     handlerFunc: (context, parameters) {
       final authStatus = Provider.of<AuthProvider>(context!).authStatus;
       Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.walletRoute);
-      return (authStatus == AuthStatus.authenticated) ? WalletView() : const LoginView();
+      return (authStatus == AuthStatus.authenticated) ? const WalletView() : const LoginView();
     },
   );
 
@@ -29,7 +29,7 @@ class DashboardHandlers {
     handlerFunc: (context, parameters) {
       final authStatus = Provider.of<AuthProvider>(context!).authStatus;
       Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.storesRoute);
-      return (authStatus == AuthStatus.authenticated) ? StoresView() : const LoginView();
+      return (authStatus == AuthStatus.authenticated) ? const StoresView() : const LoginView();
     },
   );
 
@@ -37,7 +37,7 @@ class DashboardHandlers {
     handlerFunc: (context, parameters) {
       final authStatus = Provider.of<AuthProvider>(context!).authStatus;
       Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.iconsRoute);
-      return (authStatus == AuthStatus.authenticated) ? IconsView() : const LoginView();
+      return (authStatus == AuthStatus.authenticated) ? const IconsView() : const LoginView();
     },
   );
 
@@ -49,11 +49,37 @@ class DashboardHandlers {
     },
   );
 
+  static Handler users = Handler(
+    handlerFunc: (context, parameters) {
+      final authStatus = Provider.of<AuthProvider>(context!).authStatus;
+      Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.usersRoute);
+      return (authStatus == AuthStatus.authenticated) ? const UsersView() : const LoginView();
+    },
+  );
+
+  static Handler user = Handler(
+    handlerFunc: (context, parameters) {
+      final authStatus = Provider.of<AuthProvider>(context!).authStatus;
+      Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.userRoute);
+      if (authStatus == AuthStatus.authenticated) {
+        // Verificamos si viene el parámetro de la ruta uid
+        if (parameters['uid']?.first != null) {
+          return UserView(uid: parameters['uid']!.first);
+        } else {
+          return const UsersView();
+        }
+      } else {
+        return const LoginView();
+      }
+      return null;
+    },
+  );
+
   static Handler blank = Handler(
     handlerFunc: (context, parameters) {
       final authStatus = Provider.of<AuthProvider>(context!).authStatus;
       Provider.of<SideBarProvider>(context, listen: false).setCurrentPageUrl(Flurorouter.blankRoute);
-      return (authStatus == AuthStatus.authenticated) ? BlankView() : const LoginView();
+      return (authStatus == AuthStatus.authenticated) ? const BlankView() : const LoginView();
     },
   );
 }

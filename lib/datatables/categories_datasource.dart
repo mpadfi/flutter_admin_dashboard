@@ -1,7 +1,11 @@
+import 'package:admin_dashboard/services/notifications_service.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:admin_dashboard/providers/categories_provider.dart';
+
 import 'package:admin_dashboard/models/category.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/ui/modals/category_modal.dart';
-import 'package:flutter/material.dart';
 
 class CategoriesDTS extends DataTableSource {
   //
@@ -22,7 +26,7 @@ class CategoriesDTS extends DataTableSource {
         DataCell(Row(
           children: [
             //
-            //* BOTÓN BORRAR CATEGORÍA
+            //* BOTÓN EDITAR CATEGORÍA
             IconButton(
                 icon: const Icon(Icons.edit_rounded),
                 onPressed: () {
@@ -54,7 +58,13 @@ class CategoriesDTS extends DataTableSource {
                         child: Text('Cancelar', style: CustomLabels.p),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Provider.of<CategoriesProvider>(context, listen: false).deleteCategory(categoria.id);
+                          NotificationsService.showSnackbar('Categoría Eliminada');
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        },
                         child: Text('Eliminar', style: CustomLabels.p),
                       ),
                     ],

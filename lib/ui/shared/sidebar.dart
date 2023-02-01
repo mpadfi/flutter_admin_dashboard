@@ -13,7 +13,7 @@ class Sidebar extends StatelessWidget {
 
   void navigateTo(String routeName) {
     SideBarProvider.closeMenu();
-    NavigationService.navigateTo(routeName);
+    NavigationService.replaceTo(routeName);
   }
 
   @override
@@ -62,6 +62,12 @@ class Sidebar extends StatelessWidget {
             text: 'Categories',
             icon: Icons.layers_rounded,
             onPressed: () => navigateTo(Flurorouter.categoriesRoute),
+          ),
+          CustomMenuItem(
+            isActive: currentPage == Flurorouter.usersRoute,
+            text: 'Usuarios',
+            icon: Icons.people_alt_outlined,
+            onPressed: () => navigateTo(Flurorouter.usersRoute),
           ),
           const SizedBox(height: 50.0),
           const TextSeparator(text: 'Actions'),

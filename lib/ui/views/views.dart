@@ -6,4 +6,6 @@ export 'package:admin_dashboard/ui/views/others/categories_view.dart';
 export 'package:admin_dashboard/ui/views/others/icons_view.dart';
 export 'package:admin_dashboard/ui/views/register_view.dart';
 export 'package:admin_dashboard/ui/views/stores_view.dart';
+export 'package:admin_dashboard/ui/views/user_view.dart';
+export 'package:admin_dashboard/ui/views/users_view.dart';
 export 'package:admin_dashboard/ui/views/wallet_view.dart';

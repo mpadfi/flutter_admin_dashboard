@@ -27,7 +27,7 @@ class _CategoriesViewState extends State<CategoriesView> {
   @override
   Widget build(BuildContext context) {
     //
-    final categorias = Provider.of<CategoriesProvider>(context).categorias;
+    final categoriesProvider = Provider.of<CategoriesProvider>(context);
 
     return Container(
       padding: const EdgeInsets.all(30.0),
@@ -39,11 +39,18 @@ class _CategoriesViewState extends State<CategoriesView> {
           PaginatedDataTable(
             columns: [
               DataColumn(label: Text('ID', style: CustomLabels.tableFirstRow)),
-              DataColumn(label: Text('Categoría', style: CustomLabels.tableFirstRow)),
+              DataColumn(
+                label: Text('Categoría', style: CustomLabels.tableFirstRow),
+                onSort: (colIndex, _) {
+                  categoriesProvider.sort<String>((category) => category.nombre);
+                },
+              ),
               DataColumn(label: Text('Creador', style: CustomLabels.tableFirstRow)),
               DataColumn(label: Text('Acciones', style: CustomLabels.tableFirstRow)),
             ],
-            source: CategoriesDTS(categorias, context),
+            source: CategoriesDTS(categoriesProvider.categorias, context),
+            sortColumnIndex: 2,
+            sortAscending: true,
             header: Text('Categorías', maxLines: 2, style: CustomLabels.tableHeader),
             onRowsPerPageChanged: (value) {
               setState(() {

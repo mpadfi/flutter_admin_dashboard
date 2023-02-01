@@ -100,7 +100,7 @@ class StoreImage extends StatelessWidget {
       child: (img != '')
           ? ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image.network(
+              child: Image.asset(
                 img!,
                 fit: BoxFit.fitWidth,
               ),

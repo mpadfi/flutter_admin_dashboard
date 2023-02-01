@@ -9,6 +9,7 @@ class Navbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
+        padding: const EdgeInsets.only(top: 5),
         height: 50,
         width: double.infinity,
         decoration: buildBoxDecoration(),
@@ -23,7 +24,7 @@ class Navbar extends StatelessWidget {
             // Search input
             if (size.width > 390)
               ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 250),
+                constraints: const BoxConstraints(maxWidth: 300),
                 child: const SearchText(),
               ),
             const Spacer(),

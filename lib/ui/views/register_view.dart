@@ -117,7 +117,7 @@ class RegisterView extends StatelessWidget {
                 LinkText(
                   text: 'Iniciar sesión',
                   onClick: () {
-                    Navigator.pushNamed(context, Flurorouter.loginRoute);
+                    Navigator.pushReplacementNamed(context, Flurorouter.loginRoute);
                   },
                 )
               ],

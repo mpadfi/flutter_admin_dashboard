@@ -8,9 +8,10 @@ import 'package:admin_dashboard/models/http/categories_response.dart';
 class CategoriesProvider extends ChangeNotifier {
   //
   List<Categoria> categorias = [];
+  bool ascending = true;
 
   getCategories() async {
-    final resp = await CafeApi.httpGet('/categorias');
+    final resp = await CafeApi.get('/categorias');
     final categoriesResp = CategoriesResponse.fromMap(resp);
     categorias = [...categoriesResp.categorias];
     notifyListeners();
@@ -20,7 +21,7 @@ class CategoriesProvider extends ChangeNotifier {
     final data = {'nombre': name};
     try {
       //
-      final json = await CafeApi.httpPost('/categorias', data);
+      final json = await CafeApi.post('/categorias', data);
       final newCategoria = Categoria.fromMap(json);
 
       categorias.add(newCategoria);
@@ -28,16 +29,15 @@ class CategoriesProvider extends ChangeNotifier {
       notifyListeners();
       //
     } catch (e) {
-      print(e);
       print('error al crear categoría');
     }
   }
 
-  Future updateCategory(String id, String name) async {
-    final data = {'nombre': name};
+  Future updateCategory(String id, String name, bool? estado) async {
+    final data = {'nombre': name, 'estado': estado};
     try {
       //
-      await CafeApi.httpPut('/categorias/$id', data);
+      await CafeApi.put('/categorias/$id', data);
 
       categorias = categorias.map((categoria) {
         if (categoria.id != id) return categoria;
@@ -51,5 +51,32 @@ class CategoriesProvider extends ChangeNotifier {
       print(e);
       print('error al crear categoría');
     }
+  }
+
+  Future deleteCategory(String id) async {
+    //
+    try {
+      //
+      await CafeApi.httpDelete('/categorias/$id', {});
+
+      categorias.removeWhere((categoria) => categoria.id == id);
+
+      notifyListeners();
+      //
+    } catch (e) {
+      print(e);
+      print('error al crear categoría');
+    }
+  }
+
+  void sort<T>(Comparable<T> Function(Categoria category) getField) {
+    categorias.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending ? Comparable.compare(aValue, bValue) : Comparable.compare(bValue, aValue);
+    });
+    ascending = !ascending;
+    notifyListeners();
   }
 }
